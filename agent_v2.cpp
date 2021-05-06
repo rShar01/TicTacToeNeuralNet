@@ -83,9 +83,9 @@ void agent_v2::init(char p) {
 
 pair<int, int> agent_v2::make_move(char board[3][3]) {
     pair<int,int> ret;
+    double max_val = 0;
     vector<pair<int,int>> moves = board_ops.get_valid_moves(board);
 
-    double max_val = 0;
     for(auto move:moves) {
         double curr = find_value(board, move);
         if(curr > max_val) {
