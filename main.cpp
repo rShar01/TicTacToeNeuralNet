@@ -9,8 +9,8 @@ using namespace std;
 
 int main() {
     ttc tic{};
-    auto* player_1 = new agent_v1;
-    auto* player_2 = new agent_v1;
+    auto* player_1 = new agent_v2;
+    auto* player_2 = new agent_v2;
 
     player_1->init('o');
     player_2->init('x');

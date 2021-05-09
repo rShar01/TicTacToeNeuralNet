@@ -6,8 +6,10 @@
 #include <complex>
 #include <tuple>
 #include <iostream>
-#include "agent_v1.h"
+#include <vector>
 #include "agent_v2.h"
+#include "agent_v1.h"
+
 
 #ifndef TICTACTOE_TTC_H
 #define TICTACTOE_TTC_H
@@ -28,13 +30,10 @@ public:
     bool check_hor();
     bool check_vert();
     bool play_game(agent_v1* p1, agent_v1* p2);
-
     void main_loop();
     bool train_loop(agent_v1* player_1, agent_v1* player_2);
     void play_against_bot(agent_v1* agent);
-
-
-    void play_game(agent_v2* p1, agent_v2* p2);
+    bool play_game(agent_v2* p1, agent_v2* p2);
     bool train_loop(agent_v2* player_1, agent_v2* player_2);
     void play_against_bot(agent_v2* agent);
 };

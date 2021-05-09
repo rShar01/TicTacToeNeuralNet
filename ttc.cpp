@@ -179,16 +179,71 @@ void ttc::play_against_bot(agent_v1 *agent) {
     cout << "Game over!" << endl;
 }
 
-void ttc::play_game(agent_v2 *p1, agent_v2 *p2) {
+bool ttc::play_game(agent_v2 *p1, agent_v2 *p2) {
+    while(!check_diag() && !check_hor() && !check_vert()) {
+        std::pair<int,int> p1_move = p1->make_move(this->board);
+        board[p1_move.first][p1_move.second] = 'o';
+        curr_moves++;
 
-}
+        if(!(!check_diag() && !check_hor() && !check_vert()))
+            return true;
 
-bool ttc::train_loop(agent_v2 *player_1, agent_v2 *player_2) {
+        std::pair<int,int> p2_move = p2->make_move(this->board);
+        board[p2_move.first][p2_move.second] = 'x';
+        curr_moves++;
+    }
     return false;
 }
 
-void ttc::play_against_bot(agent_v2 *agent) {
+bool ttc::train_loop(agent_v2 *player_1, agent_v2 *player_2) {
+    int one_win = 0;
+    int two_win = 0;
+    ttc::init();
+    for(int i = 0; i < 100; i++) {
+        //cout << "starting game: " << i << endl;
+        if(ttc::play_game(player_1, player_2)) {
+            player_2->adjust_weights(-1);
+            player_1->adjust_weights(1);
+            one_win++;
+        }
+        else {
+            player_1->adjust_weights(-1);
+            player_2->adjust_weights(1);
+            two_win++;
+        }
+        //ttc::boardDisplay();
+        ttc::init();
+    }
+    if(one_win > two_win) {
+        cout << "player 1 was the winner with " << one_win << " wins!" << endl;
+        return true;
+    }
+    else {
+        cout << "player 2 was the winner with " << two_win << " wins!" << endl;
+        return false;
+    }
+}
 
+void ttc::play_against_bot(agent_v2 *agent) {
+    init();
+    agent->set_piece('x');
+    while(!check_diag() && !check_hor() && !check_vert()) {
+        boardDisplay();
+        get_user();
+        if(!(!check_diag() && !check_hor() && !check_vert()))
+            break;
+
+        std::pair<int,int> p2_move = agent->make_move(ttc::board);
+        board[p2_move.first][p2_move.second] = 'x';
+        turn = !turn;
+    }
+    boardDisplay();
+    if(!turn)
+        cout<<"x won!" << endl;
+    else
+        cout << "o won!" << endl;
+
+    cout << "Game over!" << endl;
 }
 
 std::vector<std::pair<int, int>> ttc::get_valid_moves(char curr[3][3]) {
