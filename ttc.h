@@ -16,7 +16,7 @@
 
 class ttc{
 private:
-    char board[3][3];
+    vector<vector<char>> board;
     bool turn;
     int curr_moves;
 

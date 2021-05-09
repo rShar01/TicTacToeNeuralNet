@@ -14,12 +14,9 @@ using namespace std;
 void ttc::init() {
     turn = false;
     curr_moves = 0;
-    //board = new char*[3];
     for(int i = 0; i < 3; i++) {
-        //board[i] = new char[3];
-        for (int j = 0; j < 3; j++) {
-            board[i][j] = '*';
-        }
+        vector<char> row(3,'*');
+        board.push_back(row);
     }
 }
 void ttc::boardDisplay() {
@@ -116,15 +113,15 @@ void ttc::main_loop() {
 bool ttc::play_game(agent_v1* p1, agent_v1* p2) {
     bool p1_win;
     while(!check_diag() && !check_hor() && !check_vert()) {
-        std::pair<int,int> p1_move = p1->make_move(ttc::board);
-        board[p1_move.first][p1_move.second] = 'o';
+        // std::pair<int,int> p1_move = p1->make_move(ttc::board);
+        // board[p1_move.first][p1_move.second] = 'o';
         curr_moves++;
 
         if(!(!check_diag() && !check_hor() && !check_vert()))
             return true;
 
-        std::pair<int,int> p2_move = p2->make_move(ttc::board);
-        board[p2_move.first][p2_move.second] = 'x';
+        // std::pair<int,int> p2_move = p2->make_move(ttc::board);
+        // board[p2_move.first][p2_move.second] = 'x';
         curr_moves++;
     }
     return false;
@@ -166,8 +163,8 @@ void ttc::play_against_bot(agent_v1 *agent) {
         if(!(!check_diag() && !check_hor() && !check_vert()))
             break;
 
-        std::pair<int,int> p2_move = agent->make_move(ttc::board);
-        board[p2_move.first][p2_move.second] = 'x';
+        // std::pair<int,int> p2_move = agent->make_move(ttc::board);
+        // board[p2_move.first][p2_move.second] = 'x';
         turn = !turn;
     }
     boardDisplay();
@@ -181,7 +178,7 @@ void ttc::play_against_bot(agent_v1 *agent) {
 
 bool ttc::play_game(agent_v2 *p1, agent_v2 *p2) {
     while(!check_diag() && !check_hor() && !check_vert()) {
-        std::pair<int,int> p1_move = p1->make_move(this->board);
+        std::pair<int,int> p1_move = p1->make_move(board);
         board[p1_move.first][p1_move.second] = 'o';
         curr_moves++;
 
@@ -233,7 +230,7 @@ void ttc::play_against_bot(agent_v2 *agent) {
         if(!(!check_diag() && !check_hor() && !check_vert()))
             break;
 
-        std::pair<int,int> p2_move = agent->make_move(ttc::board);
+        std::pair<int,int> p2_move = agent->make_move(board);
         board[p2_move.first][p2_move.second] = 'x';
         turn = !turn;
     }

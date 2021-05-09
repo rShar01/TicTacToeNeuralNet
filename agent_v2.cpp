@@ -14,6 +14,19 @@ double random_range(float Min, float Max)
     return ((double(rand()) / double(RAND_MAX)) * (Max - Min)) + Min;
 }
 
+vector<pair<int, int>> get_valid_moves(vector<vector<char>> board) {
+    vector<pair<int, int>> moves;
+    for(int i = 0; i < 3; i++) {
+        for(int j = 0; j < 3; j++) {
+            if(board[i][j] == '*') {
+                moves.emplace_back(i,j);
+            }
+        }
+    }
+    return moves;
+}
+
+
 double sigmoid(double x) {
     return 1/(1+exp(-x));
 }
@@ -42,7 +55,7 @@ vector<double> agent_v2::calc_nodes(int layer, const vector<double>& board, vect
     return ret;
 }
 
-double agent_v2::find_value(char board[3][3], pair<int,int> move) {
+double agent_v2::find_value(vector<vector<char>> board, pair<int,int> move) {
     char curr_board[3][3];
     for(int i = 0; i < 3; i++) {
         for (int j = 0; j < 3; j++) {
@@ -93,11 +106,13 @@ void agent_v2::init(char p) {
     }
 }
 
-pair<int, int> agent_v2::make_move(char board[3][3]) {
+pair<int, int> agent_v2::make_move(vector<vector<char>> board) {
     pair<int,int> ret;
-    ttc board_ops{};
     double max_val = 0;
-    vector<pair<int,int>> moves = board_ops.get_valid_moves(board);
+    vector<pair<int,int>> moves = get_valid_moves(board);
+
+    int rand_move = (int)random_range(0, (float)moves.size());
+    ret = moves[rand_move];
 
     for(auto move:moves) {
         double curr = find_value(board, move);
@@ -138,5 +153,6 @@ void agent_v2::adjust_weights(double outcome) {
     }
 
 }
+
 
 

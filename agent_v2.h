@@ -31,7 +31,7 @@ private:
     vector<double> flatten(char board[3][3]) const;
 
     // gets the predicted probability of a win in the current position with the given move
-    double find_value(char board[3][3], pair<int,int> move);
+    double find_value(vector<vector<char>> board, pair<int,int> move);
 
     // does the weight and bias calculations at a given layer
     vector<double>
@@ -42,14 +42,13 @@ public:
     void init(char piece);
 
     // chooses and makes "best" move
-    pair<int,int> make_move(char board[3][3]);
+    pair<int,int> make_move(vector<vector<char>> board);
 
     // if needed to change the agent's current piece (do not adjust during games)
     void set_piece(char p);
 
     // adjusts weights based on true outcome, uses RMSE as loss function
     void adjust_weights(double outcome);
-
 
 };
 
