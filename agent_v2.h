@@ -3,11 +3,11 @@
 //
 
 #include <vector>
+#include "Mat.h"
 
 #ifndef TICTACTOE_AGENT_V2_H
 #define TICTACTOE_AGENT_V2_H
-#include "Mat.h"
-#include "ttc.h"
+
 /*
  * Q-learning approach
  */

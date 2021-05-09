@@ -2,14 +2,14 @@
 // Created by Ryan on 5/4/2021.
 //
 #include <utility>
-#include <random>
 #include <math.h>
 #include "agent_v2.h"
 #include "Mat.h"
+#include "ttc.h"
 
 
 
-double random_num(float Min, float Max)
+double random_range(float Min, float Max)
 {
     return ((double(rand()) / double(RAND_MAX)) * (Max - Min)) + Min;
 }
@@ -39,6 +39,7 @@ vector<double> agent_v2::calc_nodes(int layer, const vector<double>& board, vect
         ret.push_back(result);
         this->last_most[layer][i] = result;
     }
+    return ret;
 }
 
 double agent_v2::find_value(char board[3][3], pair<int,int> move) {
@@ -76,19 +77,19 @@ void agent_v2::init(char p) {
     for(int i = 0; i < 5; i++) {
         vector<double> weights;
         for(int j = 0; j < 9; j++)
-            weights.push_back(random_num(-10,10));
+            weights.push_back(random_range(-10, 10));
 
         this->val_net_weight_1.push_back(weights);
-        this->val_net_bias_1.push_back(random_num(-15,15));
+        this->val_net_bias_1.push_back(random_range(-15, 15));
     }
     for(int i = 0; i < 2; i++) {
         vector<double> weights;
 
         for(int j = 0; j < 5; j++)
-            weights.push_back(random_num(-10,10));
+            weights.push_back(random_range(-10, 10));
 
         this->val_net_weight_2.push_back(weights);
-        this->val_net_bias_2.push_back(random_num(-15,15));
+        this->val_net_bias_2.push_back(random_range(-15, 15));
     }
 }
 

@@ -27,9 +27,9 @@ void agent_v1::init(char start) {
 //            agent_v1::weight_2[i][j] = (double) rand() / (double) (RAND_MAX / (MAX - MIN));
 //            agent_v1::const_1[i][j] = (double) rand() / (double) (RAND_MAX / (MAX - MIN));
 //            agent_v1::const_2[i][j] = (double) rand() / (double) (RAND_MAX / (MAX - MIN));
-            this->weight_1[i][j] = random_num(-1,1);
-            this->weight_2[i][j] = random_num(-1,1);
-            this->const_1[i][j] = random_num(-0.5,0.5);
+            this->weight_1[i][j] = random_num(-1, 1);
+            this->weight_2[i][j] = random_num(-1, 1);
+            this->const_1[i][j] = random_num(-0.5, 0.5);
             this->const_2[i][j] = random_num(-0.5, 0.5);
         }
     }
@@ -37,8 +37,8 @@ void agent_v1::init(char start) {
 //        std::cout << random_num(-0.5,0.5) << std::endl;
 //        agent_v1::weight_out[i] = (double) rand() / (double) (RAND_MAX / (MAX - MIN));
 //        agent_v1::const_out[i] = (double) rand() / (double) (RAND_MAX / (MAX - MIN));
-        this->weight_out[i] = random_num(-1,1);
-        this->const_out[i] = random_num(-0.5,0.5);
+        this->weight_out[i] = random_num(-1, 1);
+        this->const_out[i] = random_num(-0.5, 0.5);
     }
 }
 
